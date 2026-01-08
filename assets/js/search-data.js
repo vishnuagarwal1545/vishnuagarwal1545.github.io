@@ -45,7 +45,7 @@ ninja.data = [{
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/cloudwatch-database-insights-vs-rds-performance-insights/";
+            window.location.href = "/blog/2026/cloudwatch-database-insights-vs-rds-performance-insights/";
           
         },
       },{id: "post-welcome-to-my-blog",
