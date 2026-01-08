@@ -37,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/blog/";
           },
-        },{id: "post-welcome-to-my-blog",
+        },{id: "post-cloudwatch-database-insights-vs-rds-performance-insights-a-complete-comparison",
+        
+          title: "CloudWatch Database Insights vs. RDS Performance Insights - A Complete Comparison",
+        
+        description: "A comprehensive guide comparing CloudWatch Database Insights and RDS Performance Insights, including pricing, features, and migration considerations",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/cloudwatch-database-insights-vs-rds-performance-insights/";
+          
+        },
+      },{id: "post-welcome-to-my-blog",
         
           title: "Welcome to My Blog",
         
