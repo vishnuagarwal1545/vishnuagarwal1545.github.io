@@ -161,6 +161,37 @@ _styles: |
   #markdown-content pre {
     border-left: 4px solid var(--global-theme-color);
     padding: 1.25rem;
+    background-color: var(--global-code-bg-color);
+  }
+
+  /* Fix code block text color in light mode - ensure base text is dark, not red */
+  html[data-theme="light"] #markdown-content pre,
+  html:not([data-theme]) #markdown-content pre {
+    color: #333;
+  }
+
+  /* Fix code inside pre blocks in light mode */
+  html[data-theme="light"] #markdown-content pre code,
+  html:not([data-theme]) #markdown-content pre code {
+    color: #333;
+    background-color: transparent;
+  }
+
+  /* Ensure highlight wrapper has proper background in light mode */
+  html[data-theme="light"] #markdown-content .highlight,
+  html:not([data-theme]) #markdown-content .highlight {
+    background-color: var(--global-code-bg-color);
+  }
+
+  html[data-theme="light"] #markdown-content .highlight pre,
+  html:not([data-theme]) #markdown-content .highlight pre {
+    background-color: var(--global-code-bg-color);
+  }
+
+  /* Override any rouge classes that might be making text red in light mode */
+  html[data-theme="light"] #markdown-content .highlight pre code,
+  html:not([data-theme]) #markdown-content .highlight pre code {
+    color: #333;
   }
 
   /* Section headers */
