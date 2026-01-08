@@ -63,7 +63,7 @@ ninja.data = [{
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2024/welcome-to-my-blog/";
+            window.location.href = "/blog/2026/welcome-to-my-blog/";
           
         },
       },{id: "projects-project-template",
