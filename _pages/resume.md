@@ -219,4 +219,3 @@ description: ATS-compliant resume for Vishnu Agarwal - Senior DevOps Engineer
   }
 }
 </style>
-

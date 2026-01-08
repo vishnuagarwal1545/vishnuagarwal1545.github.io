@@ -160,129 +160,61 @@
       "name": "Cloud Platforms",
       "level": "Expert",
       "icon": "fa-solid fa-cloud",
-      "keywords": [
-        "AWS",
-        "EKS",
-        "ECR",
-        "EC2",
-        "S3",
-        "VPC",
-        "IAM",
-        "RDS",
-        "Aurora",
-        "Elasticache",
-        "OpenSearch"
-      ]
+      "keywords": ["AWS", "EKS", "ECR", "EC2", "S3", "VPC", "IAM", "RDS", "Aurora", "Elasticache", "OpenSearch"]
     },
     {
       "name": "Container Orchestration",
       "level": "Expert",
       "icon": "fa-solid fa-cube",
-      "keywords": [
-        "Kubernetes",
-        "EKS",
-        "ArgoCD",
-        "Argo Workflows",
-        "GitOps"
-      ]
+      "keywords": ["Kubernetes", "EKS", "ArgoCD", "Argo Workflows", "GitOps"]
     },
     {
       "name": "Infrastructure as Code",
       "level": "Expert",
       "icon": "fa-solid fa-code",
-      "keywords": [
-        "Terraform",
-        "Infrastructure Automation",
-        "State Management"
-      ]
+      "keywords": ["Terraform", "Infrastructure Automation", "State Management"]
     },
     {
       "name": "CI/CD & DevOps",
       "level": "Expert",
       "icon": "fa-solid fa-gear",
-      "keywords": [
-        "CI/CD",
-        "GitOps",
-        "Jenkins",
-        "GitLab CI",
-        "GitHub Actions",
-        "Pipeline Automation",
-        "Ansible"
-      ]
+      "keywords": ["CI/CD", "GitOps", "Jenkins", "GitLab CI", "GitHub Actions", "Pipeline Automation", "Ansible"]
     },
     {
       "name": "Databases",
       "level": "Expert",
       "icon": "fa-solid fa-database",
-      "keywords": [
-        "PostgreSQL",
-        "Aurora",
-        "Redis",
-        "Valkey",
-        "Database Migration",
-        "Performance Tuning"
-      ]
+      "keywords": ["PostgreSQL", "Aurora", "Redis", "Valkey", "Database Migration", "Performance Tuning"]
     },
     {
       "name": "Data Engineering",
       "level": "Advanced",
       "icon": "fa-solid fa-chart-line",
-      "keywords": [
-        "Kafka",
-        "Databricks",
-        "Streaming Platforms",
-        "Data Pipelines"
-      ]
+      "keywords": ["Kafka", "Databricks", "Streaming Platforms", "Data Pipelines"]
     },
     {
       "name": "Programming & Scripting",
       "level": "Advanced",
       "icon": "fa-solid fa-terminal",
-      "keywords": [
-        "Python",
-        "Bash",
-        "Shell Scripting",
-        "CLI Development",
-        "Node.js",
-        "Java 8",
-        "Spring Boot"
-      ]
+      "keywords": ["Python", "Bash", "Shell Scripting", "CLI Development", "Node.js", "Java 8", "Spring Boot"]
     },
     {
       "name": "Observability & Monitoring",
       "level": "Expert",
       "icon": "fa-solid fa-chart-bar",
-      "keywords": [
-        "Datadog",
-        "Monitoring",
-        "Alerting",
-        "Log Management",
-        "OpenSearch",
-        "Vector"
-      ]
+      "keywords": ["Datadog", "Monitoring", "Alerting", "Log Management", "OpenSearch", "Vector"]
     },
     {
       "name": "Security & Access Management",
       "level": "Advanced",
       "icon": "fa-solid fa-shield",
-      "keywords": [
-        "IAM",
-        "SSM Parameter Store",
-        "Secrets Management",
-        "Security Hardening",
-        "Least Privilege"
-      ]
+      "keywords": ["IAM", "SSM Parameter Store", "Secrets Management", "Security Hardening", "Least Privilege"]
     },
     {
       "name": "Cost Optimization",
       "level": "Expert",
       "icon": "fa-solid fa-dollar-sign",
-      "keywords": [
-        "FinOps",
-        "Cost Optimization",
-        "Resource Management",
-        "Budget Analysis"
-      ]
+      "keywords": ["FinOps", "Cost Optimization", "Resource Management", "Budget Analysis"]
     }
   ],
   "languages": [
