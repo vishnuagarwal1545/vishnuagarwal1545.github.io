@@ -5,22 +5,212 @@ date: 2025-01-07
 description: A comprehensive guide comparing CloudWatch Database Insights and RDS Performance Insights, including pricing, features, and migration considerations
 tags: aws, cloudwatch, rds, database, devops, performance-monitoring
 categories: devops, aws
+_styles: |
+  /* Enhanced link styling */
+  #markdown-content a {
+    color: var(--global-theme-color);
+    text-decoration: underline;
+    text-decoration-color: var(--global-theme-color);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  #markdown-content a:hover {
+    color: var(--global-hover-color);
+    text-decoration-color: var(--global-hover-color);
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 4px;
+    margin: -2px -4px;
+    border-radius: 3px;
+  }
+
+  html[data-theme="dark"] #markdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Enhanced table styling */
+  #markdown-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 2rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  #markdown-content table th {
+    background-color: var(--global-theme-color);
+    color: var(--global-bg-color);
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 2px solid var(--global-divider-color);
+  }
+
+  #markdown-content table td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--global-divider-color);
+    vertical-align: middle;
+  }
+
+  #markdown-content table tr:last-child td {
+    border-bottom: none;
+  }
+
+  #markdown-content table tr:hover {
+    background-color: rgba(var(--global-theme-color-rgb), 0.03);
+  }
+
+  /* Checkmark and X mark styling */
+  #markdown-content table .check-yes {
+    color: #00ab37;
+    font-weight: 600;
+    font-size: 1.05em;
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: rgba(0, 171, 55, 0.1);
+    border-radius: 4px;
+  }
+
+  #markdown-content table .check-no {
+    color: #ff3636;
+    font-weight: 600;
+    font-size: 1.05em;
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: rgba(255, 54, 54, 0.1);
+    border-radius: 4px;
+  }
+
+  #markdown-content table .check-basic {
+    color: #f29105;
+    font-weight: 500;
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: rgba(242, 145, 5, 0.1);
+    border-radius: 4px;
+  }
+
+  #markdown-content table .check-limited {
+    color: #2698ba;
+    font-weight: 500;
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: rgba(38, 152, 186, 0.1);
+    border-radius: 4px;
+  }
+
+  /* Responsive table styling */
+  @media (max-width: 768px) {
+    #markdown-content table {
+      font-size: 0.85rem;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    #markdown-content table th,
+    #markdown-content table td {
+      padding: 0.5rem;
+      white-space: nowrap;
+    }
+  }
+
+  /* Better spacing for sections */
+  #markdown-content > * {
+    margin-bottom: 1rem;
+  }
+
+  #markdown-content > h2,
+  #markdown-content > h3 {
+    margin-top: 2.5rem;
+  }
+
+  /* Callout boxes */
+  #markdown-content blockquote {
+    border-left: 4px solid var(--global-theme-color);
+    background: rgba(0, 0, 0, 0.03);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  html[data-theme="dark"] #markdown-content blockquote {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  #markdown-content blockquote p {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  #markdown-content blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Warning callout styling */
+  #markdown-content blockquote:first-of-type {
+    border-left-color: #f29105;
+    background: rgba(242, 145, 5, 0.08);
+  }
+
+  /* Code blocks enhancement */
+  #markdown-content pre {
+    border-left: 4px solid var(--global-theme-color);
+    padding: 1.25rem;
+  }
+
+  /* Section headers */
+  #markdown-content h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--global-divider-color);
+  }
+
+  #markdown-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--global-theme-color);
+  }
+
+  /* List styling */
+  #markdown-content ul li,
+  #markdown-content ol li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+
+  /* Cost examples styling */
+  #markdown-content strong {
+    color: var(--global-theme-color);
+    font-weight: 600;
+  }
 ---
 
 # CloudWatch Database Insights vs. RDS Performance Insights - A Complete Comparison
 
 If you're using Amazon RDS or Aurora databases, you've likely encountered both RDS Performance Insights and CloudWatch Database Insights. AWS is transitioning from Performance Insights to CloudWatch Database Insights, with Performance Insights being deprecated (end-of-life target: June 30, 2026).
 
+> ⚠️ **Important**: RDS Performance Insights is being deprecated and will reach end-of-life on **June 30, 2026**. If you're currently using Performance Insights, you should plan your migration to CloudWatch Database Insights well in advance.
+
 This guide provides a comprehensive comparison to help you understand the differences, costs, and migration path. Whether you're evaluating which monitoring solution to use, planning a migration, or trying to optimize costs, this article covers everything you need to know.
 
 ## TL;DR
 
+> **Quick Summary**: AWS is deprecating RDS Performance Insights (end-of-life: June 30, 2026) in favor of CloudWatch Database Insights. The new service offers a free Standard tier (7-day retention) and a paid Advanced tier (~$9/vCPU/month, 15-month retention). While Advanced costs more than Performance Insights, it provides enhanced features like fleet monitoring and better CloudWatch integration.
+
+**Key Points:**
+
 - **CloudWatch Database Insights** provides a free Standard tier (7-day retention, similar to PI free tier) and a paid Advanced tier (15-month retention with SQL analytics and execution plans), though some features previously free in PI (like execution plan capture for Oracle/SQL Server) now require the Advanced paid tier.
 - **RDS Performance Insights** is being deprecated (June 30, 2026) in favor of CloudWatch Database Insights, which offers enhanced fleet monitoring and CloudWatch integration but costs more (~$9/vCPU/month for Advanced vs ~$4.76/vCPU/month for PI paid tier).
-- **Cost:**
-  - **DB Insights Standard**: Free, ~7 days retention.
-  - **DB Insights Advanced**: Paid, ~15 months retention, priced per vCPU-hour (~$0.0125/vCPU-hr ≈ ~$9/vCPU/mo). Example: 2 vCPU ≈ ~$18/mo per instance.
-  - **Performance Insights (PI) paid tier**: Paid, 15-24 months retention. Historically cheaper for same retention (~$4.76/mo for 2 vCPU at 15 months), but PI console is being sunset.
+- **Cost Breakdown:**
+  - **DB Insights Standard**: **Free**, ~7 days retention.
+  - **DB Insights Advanced**: **Paid**, ~15 months retention, priced per vCPU-hour (~$0.0125/vCPU-hr ≈ ~$9/vCPU/mo). Example: 2 vCPU ≈ ~$18/mo per instance.
+  - **Performance Insights (PI) paid tier**: **Paid**, 15-24 months retention. Historically cheaper for same retention (~$4.76/mo for 2 vCPU at 15 months), but PI console is being sunset.
 - **Status**: AWS is transitioning from PI to CloudWatch Database Insights. PI's console experience and flexible retention are being deprecated (end-of-life target: June 30, 2026 per AWS comms). Expect charges to roll under CloudWatch after that date.
 - **Recommendation**: Use DB Insights Standard by default. Enable Advanced only for critical databases needing >7d history and advanced analysis.
 
@@ -39,11 +229,11 @@ Standard mode is enabled by default for new instances, so you should see your da
 
 ### DB Insights Standard
 
-- **Cost**: $0
+- **Cost**: **$0** (Free)
 - **Retention**: ~7 days
 - **Suitable for**: Day-to-day triage, short-lived incidents, basic load analysis
 
-Reference: [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/)
+> 📘 **Reference**: [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/)
 
 ### DB Insights Advanced
 
@@ -51,7 +241,7 @@ Reference: [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing
 - **Retention**: ~15 months
 - **Unlocks**: Fleet views, deeper SQL/lock analysis, richer historical analysis
 
-Reference: [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/)
+> 📘 **Reference**: [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/)
 
 ### Performance Insights (Legacy Reference)
 
@@ -88,38 +278,44 @@ _Note: Standard mode is free for all instance types._
 
 ### Example A: RDS setup with Multi-AZ writer (m6g.2xlarge) and Single-AZ reader (m6g.2xlarge)
 
-- Instances considered for Advanced billing:
-  - Writer Multi-AZ: primary (8 vCPU) (billing only counts the active writer not standby)
-  - Reader Single-AZ: 1 instance (8 vCPU)
-- Total vCPU = 8 + 8 = 16 vCPU
+**Instances considered for Advanced billing:**
+
+- Writer Multi-AZ: primary (8 vCPU) — _billing only counts the active writer, not standby_
+- Reader Single-AZ: 1 instance (8 vCPU)
+
+**Calculation:**
+
+- Total vCPU = 8 + 8 = **16 vCPU**
 - Monthly cost ≈ 16 vCPU × $0.0125/vCPU-hr × 730 hr = **$146.00**
 
 ### Example B: Aurora provisioned cluster with 2 instances r8g.2xlarge (1 writer + 1 reader)
 
-- Total vCPU = 8 + 8 = 16 vCPU
+**Calculation:**
+
+- Total vCPU = 8 + 8 = **16 vCPU**
 - Monthly cost ≈ 16 vCPU × $0.0125/vCPU-hr × 730 hr ≈ **$146.00**
 
 ## Feature Comparison Matrix
 
-| Feature                                        | RDS Performance Insights Free Tier | DB Insights Standard | RDS Performance Insights Paid Tier     | DB Insights Advanced                    |
-| ---------------------------------------------- | ---------------------------------- | -------------------- | -------------------------------------- | --------------------------------------- |
-| **Cost**                                       | Free                               | Free                 | ~$4.76/mo (2 vCPU, 15-month retention) | ~$9/vCPU/month (~$0.0125/vCPU-hour)     |
-| **Data Retention**                             | 7 days                             | 7 days               | 1-24 months (configurable)             | 15 months                               |
-| **Database Load Metrics**                      | ☑ Yes                             | ☑ Yes               | ☑ Yes                                 | ☑ Yes                                  |
-| **Wait State Analysis**                        | ☑ Yes                             | ☑ Yes               | ☑ Yes                                 | ☑ Yes                                  |
-| **Top SQL Statements**                         | ☑ Yes                             | ☑ Basic             | ☑ Yes                                 | ☑ Enhanced with analytics              |
-| **SQL Query Analytics**                        | ❌ No                              | ❌ No                | ☑ Yes                                 | ☑ Yes                                  |
-| **Execution Plan Capture**                     | ☑ Yes (Oracle, SQL Server)        | ❌ No                | ☑ Yes (Oracle, SQL Server)            | ☑ Yes (Oracle, SQL Server, PostgreSQL) |
-| **On-Demand Analysis**                         | ❌ No                              | ❌ No                | ☑ Yes (PostgreSQL, MySQL)             | ☑ Yes (PostgreSQL, MySQL)              |
-| **Proactive Recommendations**                  | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes                                  |
-| **Lock Diagnostics**                           | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes (Aurora PostgreSQL)              |
-| **Fleet-Level Monitoring**                     | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes                                  |
-| **Session Analysis**                           | ☑ Basic                           | ☑ Basic             | ☑ Enhanced                            | ☑ Enhanced                             |
-| **Historical Trend Analysis**                  | ☑ Limited (7 days)                | ☑ Limited (7 days)  | ☑ Yes (up to 24 months)               | ☑ Yes (15 months)                      |
-| **CloudWatch Application Signals Integration** | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes                                  |
-| **OS Process Visibility**                      | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes (with Enhanced Monitoring)       |
-| **Metric Granularity**                         | 1-second intervals                 | 1-second intervals   | 1-second intervals                     | 1-second intervals                      |
-| **Customizable Alarms**                        | ☑ Yes                             | ☑ Yes               | ☑ Yes                                 | ☑ Yes                                  |
+| Feature                                        | RDS Performance Insights Free Tier                        | DB Insights Standard                                | RDS Performance Insights Paid Tier                        | DB Insights Advanced                                                  |
+| ---------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Cost**                                       | Free                                                      | Free                                                | ~$4.76/mo (2 vCPU, 15-month retention)                    | ~$9/vCPU/month (~$0.0125/vCPU-hour)                                   |
+| **Data Retention**                             | 7 days                                                    | 7 days                                              | 1-24 months (configurable)                                | 15 months                                                             |
+| **Database Load Metrics**                      | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Yes</span>                | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Yes</span>                                  |
+| **Wait State Analysis**                        | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Yes</span>                | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Yes</span>                                  |
+| **Top SQL Statements**                         | <span class="check-yes">✓ Yes</span>                      | <span class="check-basic">Basic</span>              | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Enhanced with analytics</span>              |
+| **SQL Query Analytics**                        | <span class="check-no">✗ No</span>                        | <span class="check-no">✗ No</span>                  | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Yes</span>                                  |
+| **Execution Plan Capture**                     | <span class="check-yes">✓ Yes</span> (Oracle, SQL Server) | <span class="check-no">✗ No</span>                  | <span class="check-yes">✓ Yes</span> (Oracle, SQL Server) | <span class="check-yes">✓ Yes</span> (Oracle, SQL Server, PostgreSQL) |
+| **On-Demand Analysis**                         | <span class="check-no">✗ No</span>                        | <span class="check-no">✗ No</span>                  | <span class="check-yes">✓ Yes</span> (PostgreSQL, MySQL)  | <span class="check-yes">✓ Yes</span> (PostgreSQL, MySQL)              |
+| **Proactive Recommendations**                  | <span class="check-no">✗ No</span>                        | <span class="check-no">✗ No</span>                  | <span class="check-no">✗ No</span>                        | <span class="check-yes">✓ Yes</span>                                  |
+| **Lock Diagnostics**                           | <span class="check-no">✗ No</span>                        | <span class="check-no">✗ No</span>                  | <span class="check-no">✗ No</span>                        | <span class="check-yes">✓ Yes</span> (Aurora PostgreSQL)              |
+| **Fleet-Level Monitoring**                     | <span class="check-no">✗ No</span>                        | <span class="check-no">✗ No</span>                  | <span class="check-no">✗ No</span>                        | <span class="check-yes">✓ Yes</span>                                  |
+| **Session Analysis**                           | <span class="check-basic">Basic</span>                    | <span class="check-basic">Basic</span>              | <span class="check-yes">✓ Enhanced</span>                 | <span class="check-yes">✓ Enhanced</span>                             |
+| **Historical Trend Analysis**                  | <span class="check-limited">Limited</span> (7 days)       | <span class="check-limited">Limited</span> (7 days) | <span class="check-yes">✓ Yes</span> (up to 24 months)    | <span class="check-yes">✓ Yes</span> (15 months)                      |
+| **CloudWatch Application Signals Integration** | <span class="check-no">✗ No</span>                        | <span class="check-no">✗ No</span>                  | <span class="check-no">✗ No</span>                        | <span class="check-yes">✓ Yes</span>                                  |
+| **OS Process Visibility**                      | <span class="check-no">✗ No</span>                        | <span class="check-no">✗ No</span>                  | <span class="check-no">✗ No</span>                        | <span class="check-yes">✓ Yes</span> (with Enhanced Monitoring)       |
+| **Metric Granularity**                         | 1-second intervals                                        | 1-second intervals                                  | 1-second intervals                                        | 1-second intervals                                                    |
+| **Customizable Alarms**                        | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Yes</span>                | <span class="check-yes">✓ Yes</span>                      | <span class="check-yes">✓ Yes</span>                                  |
 
 ## Features - Standard vs Advanced Detailed Comparison
 
@@ -378,37 +574,37 @@ For detailed console instructions, refer to the [Getting Started with Database I
 
 ### Official AWS Documentation
 
-- [Database Insights User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database.html) - Comprehensive guide on using Database Insights
-- [Getting Started with Database Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-getting-started.html) - Setup and configuration guide
-- [Database Insights SQL Query Analytics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-SQL.html) - SQL query analysis features
-- [Database Insights Fleet Management](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-Fleet.html) - Fleet-level monitoring capabilities
+- **[Database Insights User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database.html)** — Comprehensive guide on using Database Insights
+- **[Getting Started with Database Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-getting-started.html)** — Setup and configuration guide
+- **[Database Insights SQL Query Analytics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-SQL.html)** — SQL query analysis features
+- **[Database Insights Fleet Management](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-Fleet.html)** — Fleet-level monitoring capabilities
 
 ### RDS Performance Insights (Legacy)
 
-- [Using Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html) - Overview and depreciation timeline
-- [Performance Insights Metrics](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.UsingDashboard.html#USER_PerfInsights.UsingDashboard.Metrics) - Metrics reference
+- **[Using Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)** — Overview and depreciation timeline
+- **[Performance Insights Metrics](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.UsingDashboard.html#USER_PerfInsights.UsingDashboard.Metrics)** — Metrics reference
 
 ### Pricing Information
 
-- [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/) - Official pricing page (includes Database Insights section)
-- [Performance Insights Pricing](https://aws.amazon.com/rds/performance-insights/pricing/) - Legacy PI pricing (for comparison)
-- [CloudWatch Billing and Cost Management](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitoring_aws_usage.html) - How to analyze and optimize costs
+- **[Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/)** — Official pricing page (includes Database Insights section)
+- **[Performance Insights Pricing](https://aws.amazon.com/rds/performance-insights/pricing/)** — Legacy PI pricing (for comparison)
+- **[CloudWatch Billing and Cost Management](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitoring_aws_usage.html)** — How to analyze and optimize costs
 
 ### Migration and Transition Resources
 
-- [AWS re:Post - RDS Performance Insights to CloudWatch Database Insights migration](https://repost.aws/topics/cloudwatch-database-insights) - Community Q&A on migration
-- [AWS re:Post - Transitioning from RDS Performance Insights](https://repost.aws/knowledge-center/rds-performance-insights-cloudwatch-database-insights) - Transition guide article
+- **[AWS re:Post - RDS Performance Insights to CloudWatch Database Insights migration](https://repost.aws/topics/cloudwatch-database-insights)** — Community Q&A on migration
+- **[AWS re:Post - Transitioning from RDS Performance Insights](https://repost.aws/knowledge-center/rds-performance-insights-cloudwatch-database-insights)** — Transition guide article
 
 ### Feature-Specific Documentation
 
-- [CloudWatch Application Signals](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Application-Signals.html) - Application-to-database correlation
-- [Enhanced Monitoring for RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html) - OS-level metrics integration
-- [Aurora PostgreSQL Lock Diagnostics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-Locks.html) - Lock analysis features
+- **[CloudWatch Application Signals](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Application-Signals.html)** — Application-to-database correlation
+- **[Enhanced Monitoring for RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html)** — OS-level metrics integration
+- **[Aurora PostgreSQL Lock Diagnostics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Insights-Database-Locks.html)** — Lock analysis features
 
 ### Additional Resources
 
-- [AWS Database Blog - Database Insights](https://aws.amazon.com/blogs/database/category/database/amazon-rds/cloudwatch-database-insights/) - Latest updates and best practices
-- [AWS Support Center](https://support.aws.amazon.com/) - Support and resources for AWS services
+- **[AWS Database Blog - Database Insights](https://aws.amazon.com/blogs/database/category/database/amazon-rds/cloudwatch-database-insights/)** — Latest updates and best practices
+- **[AWS Support Center](https://support.aws.amazon.com/)** — Support and resources for AWS services
 
 ---
 
