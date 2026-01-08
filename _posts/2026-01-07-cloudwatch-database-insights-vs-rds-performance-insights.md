@@ -194,6 +194,27 @@ _styles: |
     color: #333;
   }
 
+  /* Fix red syntax highlighting in light mode - override Rouge classes */
+  html[data-theme="light"] #markdown-content .highlight .nf,
+  html:not([data-theme]) #markdown-content .highlight .nf {
+    color: #445588 !important; /* Change red functions to blue */
+  }
+
+  html[data-theme="light"] #markdown-content .highlight .ne,
+  html:not([data-theme]) #markdown-content .highlight .ne {
+    color: #445588 !important; /* Change red exceptions to blue */
+  }
+
+  html[data-theme="light"] #markdown-content .highlight .nl,
+  html:not([data-theme]) #markdown-content .highlight .nl {
+    color: #445588 !important; /* Change red labels to blue */
+  }
+
+  html[data-theme="light"] #markdown-content .highlight .nc,
+  html:not([data-theme]) #markdown-content .highlight .nc {
+    color: #445588 !important; /* Ensure classes are blue */
+  }
+
   /* Section headers */
   #markdown-content h2 {
     margin-top: 2.5rem;
