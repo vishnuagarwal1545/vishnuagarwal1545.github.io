@@ -17,8 +17,8 @@ ninja.data = [{
             window.location.href = "/projects/";
           },
         },{id: "nav-resume",
-          title: "resume",
-          description: "My professional resume with downloadable PDF version.",
+          title: "Resume",
+          description: "ATS-compliant professional resume for Vishnu Agarwal - Senior DevOps Engineer with 6+ years of experience in cloud infrastructure, Kubernetes, and automation.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/cv/";
@@ -29,6 +29,13 @@ ninja.data = [{
           section: "Navigation",
           handler: () => {
             window.location.href = "/repositories/";
+          },
+        },{id: "nav-resume",
+          title: "Resume",
+          description: "ATS-compliant resume for Vishnu Agarwal - Senior DevOps Engineer",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/resume/";
           },
         },{id: "nav-blog",
           title: "blog",
