@@ -9,7 +9,7 @@ categories: devops, aws
 
 # CloudWatch Database Insights vs. RDS Performance Insights - A Complete Comparison
 
-If you're using Amazon RDS or Aurora databases, you've likely encountered both RDS Performance Insights and CloudWatch Database Insights. AWS is transitioning from Performance Insights to CloudWatch Database Insights, with Performance Insights being deprecated (end-of-life target: June 30, 2026). 
+If you're using Amazon RDS or Aurora databases, you've likely encountered both RDS Performance Insights and CloudWatch Database Insights. AWS is transitioning from Performance Insights to CloudWatch Database Insights, with Performance Insights being deprecated (end-of-life target: June 30, 2026).
 
 This guide provides a comprehensive comparison to help you understand the differences, costs, and migration path. Whether you're evaluating which monitoring solution to use, planning a migration, or trying to optimize costs, this article covers everything you need to know.
 
@@ -67,16 +67,16 @@ Understanding the cost implications is crucial when deciding whether to use Adva
 
 ### Pricing Summary
 
-| Instance Type | vCPU Count | Monthly Cost (Advanced) |
-|--------------|------------|------------------------|
-| db.t3.micro | 2 | ~$18.25 |
-| db.t3.small | 2 | ~$18.25 |
-| db.m6g.large | 2 | ~$18.25 |
-| db.m6g.xlarge | 4 | ~$36.50 |
-| db.m6g.2xlarge | 8 | ~$73.00 |
-| db.r8g.2xlarge | 8 | ~$73.00 |
+| Instance Type  | vCPU Count | Monthly Cost (Advanced) |
+| -------------- | ---------- | ----------------------- |
+| db.t3.micro    | 2          | ~$18.25                 |
+| db.t3.small    | 2          | ~$18.25                 |
+| db.m6g.large   | 2          | ~$18.25                 |
+| db.m6g.xlarge  | 4          | ~$36.50                 |
+| db.m6g.2xlarge | 8          | ~$73.00                 |
+| db.r8g.2xlarge | 8          | ~$73.00                 |
 
-*Note: Standard mode is free for all instance types.*
+_Note: Standard mode is free for all instance types._
 
 ### Assumptions:
 
@@ -101,25 +101,25 @@ Understanding the cost implications is crucial when deciding whether to use Adva
 
 ## Feature Comparison Matrix
 
-| Feature | RDS Performance Insights Free Tier | DB Insights Standard | RDS Performance Insights Paid Tier | DB Insights Advanced |
-| --- | --- | --- | --- | --- |
-| **Cost** | Free | Free | ~$4.76/mo (2 vCPU, 15-month retention) | ~$9/vCPU/month (~$0.0125/vCPU-hour) |
-| **Data Retention** | 7 days | 7 days | 1-24 months (configurable) | 15 months |
-| **Database Load Metrics** | ☑ Yes | ☑ Yes | ☑ Yes | ☑ Yes |
-| **Wait State Analysis** | ☑ Yes | ☑ Yes | ☑ Yes | ☑ Yes |
-| **Top SQL Statements** | ☑ Yes | ☑ Basic | ☑ Yes | ☑ Enhanced with analytics |
-| **SQL Query Analytics** | ❌ No | ❌ No | ☑ Yes | ☑ Yes |
-| **Execution Plan Capture** | ☑ Yes (Oracle, SQL Server) | ❌ No | ☑ Yes (Oracle, SQL Server) | ☑ Yes (Oracle, SQL Server, PostgreSQL) |
-| **On-Demand Analysis** | ❌ No | ❌ No | ☑ Yes (PostgreSQL, MySQL) | ☑ Yes (PostgreSQL, MySQL) |
-| **Proactive Recommendations** | ❌ No | ❌ No | ❌ No | ☑ Yes |
-| **Lock Diagnostics** | ❌ No | ❌ No | ❌ No | ☑ Yes (Aurora PostgreSQL) |
-| **Fleet-Level Monitoring** | ❌ No | ❌ No | ❌ No | ☑ Yes |
-| **Session Analysis** | ☑ Basic | ☑ Basic | ☑ Enhanced | ☑ Enhanced |
-| **Historical Trend Analysis** | ☑ Limited (7 days) | ☑ Limited (7 days) | ☑ Yes (up to 24 months) | ☑ Yes (15 months) |
-| **CloudWatch Application Signals Integration** | ❌ No | ❌ No | ❌ No | ☑ Yes |
-| **OS Process Visibility** | ❌ No | ❌ No | ❌ No | ☑ Yes (with Enhanced Monitoring) |
-| **Metric Granularity** | 1-second intervals | 1-second intervals | 1-second intervals | 1-second intervals |
-| **Customizable Alarms** | ☑ Yes | ☑ Yes | ☑ Yes | ☑ Yes |
+| Feature                                        | RDS Performance Insights Free Tier | DB Insights Standard | RDS Performance Insights Paid Tier     | DB Insights Advanced                    |
+| ---------------------------------------------- | ---------------------------------- | -------------------- | -------------------------------------- | --------------------------------------- |
+| **Cost**                                       | Free                               | Free                 | ~$4.76/mo (2 vCPU, 15-month retention) | ~$9/vCPU/month (~$0.0125/vCPU-hour)     |
+| **Data Retention**                             | 7 days                             | 7 days               | 1-24 months (configurable)             | 15 months                               |
+| **Database Load Metrics**                      | ☑ Yes                             | ☑ Yes               | ☑ Yes                                 | ☑ Yes                                  |
+| **Wait State Analysis**                        | ☑ Yes                             | ☑ Yes               | ☑ Yes                                 | ☑ Yes                                  |
+| **Top SQL Statements**                         | ☑ Yes                             | ☑ Basic             | ☑ Yes                                 | ☑ Enhanced with analytics              |
+| **SQL Query Analytics**                        | ❌ No                              | ❌ No                | ☑ Yes                                 | ☑ Yes                                  |
+| **Execution Plan Capture**                     | ☑ Yes (Oracle, SQL Server)        | ❌ No                | ☑ Yes (Oracle, SQL Server)            | ☑ Yes (Oracle, SQL Server, PostgreSQL) |
+| **On-Demand Analysis**                         | ❌ No                              | ❌ No                | ☑ Yes (PostgreSQL, MySQL)             | ☑ Yes (PostgreSQL, MySQL)              |
+| **Proactive Recommendations**                  | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes                                  |
+| **Lock Diagnostics**                           | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes (Aurora PostgreSQL)              |
+| **Fleet-Level Monitoring**                     | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes                                  |
+| **Session Analysis**                           | ☑ Basic                           | ☑ Basic             | ☑ Enhanced                            | ☑ Enhanced                             |
+| **Historical Trend Analysis**                  | ☑ Limited (7 days)                | ☑ Limited (7 days)  | ☑ Yes (up to 24 months)               | ☑ Yes (15 months)                      |
+| **CloudWatch Application Signals Integration** | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes                                  |
+| **OS Process Visibility**                      | ❌ No                              | ❌ No                | ❌ No                                  | ☑ Yes (with Enhanced Monitoring)       |
+| **Metric Granularity**                         | 1-second intervals                 | 1-second intervals   | 1-second intervals                     | 1-second intervals                      |
+| **Customizable Alarms**                        | ☑ Yes                             | ☑ Yes               | ☑ Yes                                 | ☑ Yes                                  |
 
 ## Features - Standard vs Advanced Detailed Comparison
 
@@ -128,6 +128,7 @@ Understanding the cost implications is crucial when deciding whether to use Adva
 **Cost**: $0 (included in AWS Free Tier)
 
 **Data Retention:**
+
 - 7 days rolling history of database load metrics
 - Real-time and recent historical data only
 - Suitable for immediate troubleshooting and short-term incident analysis
@@ -135,32 +136,38 @@ Understanding the cost implications is crucial when deciding whether to use Adva
 **Core Monitoring Features (Included):**
 
 **Database Load Analysis:**
+
 - Database load metric with time series visualization
 - Breakdown of database load by wait states/categories
 - Identify top wait events impacting database performance
 - Database time vs. CPU time comparison
 
 **Basic SQL Insights:**
+
 - Top SQL statements by database load contribution
 - SQL query text display (limited context)
 - Basic filtering capabilities
 
 **Instance-Level Metrics:**
+
 - Per-instance database performance drilldowns
 - Basic resource overlay (CPU utilization tied to database load)
 
 **Session Monitoring:**
+
 - Active session count overview
 - Basic session-level insights
 
 ### CloudWatch Database Insights Advanced Mode (Paid)
 
 **Cost**: ~$0.0125 per vCPU-hour (≈ $9 per vCPU per month)
+
 - Example: 2 vCPU instance = ~$18.25/month
 - For Aurora Serverless v2: Charged per Aurora Capacity Unit (ACU) per hour
 - Pricing varies by AWS region
 
 **Data Retention:**
+
 - 15 months of performance data history
 - Long-term trend analysis and capacity planning
 - Seasonal pattern identification
@@ -168,6 +175,7 @@ Understanding the cost implications is crucial when deciding whether to use Adva
 **All Standard Mode Features PLUS:**
 
 **Advanced SQL Query Analytics:**
+
 - Detailed SQL performance insights with query-level metrics
 - SQL query analytics dashboard with comprehensive filtering
 - Query dimensions (database, user, client host, etc.)
@@ -177,46 +185,54 @@ Understanding the cost implications is crucial when deciding whether to use Adva
 - Query performance trends over extended periods
 
 **Execution Plan Capture:**
+
 - RDS for Oracle: Full execution plan capture and analysis
 - RDS for SQL Server: Execution plan visibility
 - Aurora PostgreSQL: Query execution plan support
 - Helps identify inefficient query patterns and optimization opportunities
 
 **On-Demand Analysis:**
+
 - Available for Aurora PostgreSQL, Aurora MySQL, and RDS for PostgreSQL
 - Performance bottleneck identification for selected time periods
 - Automated recommendations for performance improvements
 - Root cause analysis tools
 
 **Proactive Recommendations:**
+
 - AI-powered alerts for impending database performance issues
 - Predictive analytics for potential availability problems
 - Performance optimization suggestions
 
 **Lock Diagnostics & Analysis:**
+
 - Aurora PostgreSQL: Detailed lock tree visualization
 - Blocking and blocked session identification
 - Lock wait analysis
 - Deadlock detection and reporting
 
 **Fleet-Level Monitoring:**
+
 - Monitor multiple databases from a single dashboard
 - Cross-database performance comparison
 - Sort and filter databases by load, anomalies, and recent spikes
 - Fleet-wide anomaly detection
 
 **Enhanced Correlation & Integration:**
+
 - Integration with CloudWatch Application Signals for end-to-end application-to-database tracing
 - Correlation between database metrics, logs, and events
 - Unified observability experience within CloudWatch
 
 **Extended Historical Analysis:**
+
 - Long-term performance trending
 - Capacity planning insights
 - Seasonal pattern recognition
 - Historical incident analysis (beyond 7 days)
 
 **OS Process-Level Visibility:**
+
 - When Enhanced Monitoring is enabled, provides OS-level process insights
 - Correlation between database load and system-level processes
 
@@ -235,9 +251,9 @@ If you want to explicitly set Standard mode in Terraform:
 ```hcl
 resource "aws_db_instance" "example" {
   # ... other configurations ...
-  
+
   database_insights_mode = "standard"  # Free, 7-day retention
-  
+
   # ... other configurations ...
 }
 ```
@@ -251,15 +267,15 @@ To enable Advanced mode, you need both:
 ```hcl
 resource "aws_db_instance" "example" {
   # ... other configurations ...
-  
+
   # Required: Performance Insights must be enabled for Advanced mode
   performance_insights_enabled          = true
   performance_insights_retention_period = 456  # 15 months (to match Database Insights Advanced retention)
   performance_insights_kms_key_id       = "arn:aws:kms:region:account-id:key/key-id"  # Optional but recommended
-  
+
   # Enable Database Insights Advanced mode
   database_insights_mode = "advanced"  # Paid, ~$9/vCPU/month, 15-month retention
-  
+
   # ... other configurations ...
 }
 ```
@@ -269,15 +285,15 @@ resource "aws_db_instance" "example" {
 ```hcl
 resource "aws_rds_cluster" "example" {
   # ... other configurations ...
-  
+
   # Performance Insights configuration
   performance_insights_enabled          = true
   performance_insights_retention_period = 456  # 15 months (to match Database Insights Advanced retention)
   performance_insights_kms_key_id       = "arn:aws:kms:region:account-id:key/key-id"
-  
+
   # Database Insights Advanced mode
   database_insights_mode = "advanced"
-  
+
   # ... other configurations ...
 }
 ```
@@ -285,6 +301,7 @@ resource "aws_rds_cluster" "example" {
 ### Module Configuration Recommendations
 
 1. **Add `database_insights_mode` variable to module configuration:**
+
    - Add to `variables.tf` with default value `null` (which results in Standard mode by default)
    - Pass through to Aurora/RDS module resources
    - Document the parameter with cost implications
@@ -306,7 +323,7 @@ resource "aws_rds_cluster" "example" {
 If you're not using Terraform, you can enable Database Insights through the AWS Console:
 
 1. **Standard Mode (Default)**: No action required—automatically enabled for new RDS/Aurora instances
-2. **Advanced Mode**: 
+2. **Advanced Mode**:
    - Navigate to your RDS instance or Aurora cluster in the AWS Console
    - Go to the "Monitoring" tab
    - Enable "Performance Insights" (currently required for Advanced mode)
@@ -318,6 +335,7 @@ For detailed console instructions, refer to the [Getting Started with Database I
 ## When to Use What: Decision Guide
 
 ### Use Database Insights Standard (Free) When:
+
 - You need basic performance monitoring for day-to-day operations
 - 7 days of retention is sufficient for your troubleshooting needs
 - You're monitoring development, staging, or non-critical databases
@@ -325,6 +343,7 @@ For detailed console instructions, refer to the [Getting Started with Database I
 - You're just getting started with database performance monitoring
 
 ### Use Database Insights Advanced (Paid) When:
+
 - You need long-term historical analysis (beyond 7 days)
 - You're troubleshooting complex performance issues requiring detailed SQL analytics
 - You manage multiple databases and need fleet-level monitoring
@@ -333,6 +352,7 @@ For detailed console instructions, refer to the [Getting Started with Database I
 - You're running critical production databases that justify the cost
 
 ### If You're Currently Using Performance Insights:
+
 - **Free tier users**: Migrate to Database Insights Standard (no cost change, similar features)
 - **Paid tier users**: Plan migration to Database Insights Advanced before June 2026
 - **Evaluate costs**: Advanced tier costs more (~$9/vCPU/month vs ~$4.76/vCPU/month), but offers additional features like fleet monitoring
@@ -342,6 +362,7 @@ For detailed console instructions, refer to the [Getting Started with Database I
 1. **Start with Standard Mode**: Enable CloudWatch Database Insights Standard mode for all databases. It's free and provides 7 days of retention, which is sufficient for most day-to-day operations.
 
 2. **Evaluate Advanced Mode**: Consider enabling Advanced mode for:
+
    - Production databases requiring long-term historical analysis
    - Databases with complex performance issues needing detailed SQL analytics
    - Multi-database environments that benefit from fleet-level monitoring
@@ -393,7 +414,7 @@ For detailed console instructions, refer to the [Getting Started with Database I
 
 ## Conclusion
 
-CloudWatch Database Insights represents the future of database performance monitoring on AWS. While it comes with a higher price tag for the Advanced tier compared to Performance Insights, it offers enhanced features like fleet monitoring, better CloudWatch integration, and proactive recommendations. 
+CloudWatch Database Insights represents the future of database performance monitoring on AWS. While it comes with a higher price tag for the Advanced tier compared to Performance Insights, it offers enhanced features like fleet monitoring, better CloudWatch integration, and proactive recommendations.
 
 ### Key Takeaways
 
@@ -412,4 +433,3 @@ The transition from Performance Insights to Database Insights is inevitable. By 
 ---
 
 _Last updated: January 7, 2025_
-
