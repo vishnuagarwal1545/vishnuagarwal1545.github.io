@@ -1,7 +1,7 @@
 ---
 layout: post
 title: CloudWatch Database Insights vs. RDS Performance Insights - A Complete Comparison
-date: 2025-01-07
+date: 2026-01-07
 description: A comprehensive guide comparing CloudWatch Database Insights and RDS Performance Insights, including pricing, features, and migration considerations
 tags: aws, cloudwatch, rds, database, devops, performance-monitoring
 categories: devops, aws
@@ -628,4 +628,4 @@ The transition from Performance Insights to Database Insights is inevitable. By 
 
 ---
 
-_Last updated: January 7, 2025_
+_Last updated: January 7, 2026_
