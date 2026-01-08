@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Welcome to My Blog
-date: 2024-07-19
+date: 2026-01-01
 description: An introduction to my blog and what you can expect to find here
 tags: welcome, introduction
 categories: personal
