@@ -2,8 +2,7 @@
 layout: page
 permalink: /resume/
 title: Resume
-nav: true
-nav_order: 4
+nav: false
 description: ATS-compliant resume for Vishnu Agarwal - Senior DevOps Engineer
 ---
 

@@ -4,13 +4,6 @@ title: about
 permalink: /
 subtitle: Senior DevOps Engineer | Cloud Infrastructure Wizard 🚀
 
-profile:
-  align: right
-  more_info: >
-    <p>📍 Remote (India)</p>
-    <p>💼 Available for opportunities</p>
-    <p>☕ Always up for a tech chat!</p>
-
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
