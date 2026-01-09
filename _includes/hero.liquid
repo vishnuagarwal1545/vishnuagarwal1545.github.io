@@ -30,6 +30,12 @@
      * or change the background-image URL below to point to your image
      */
 
+    /* Enable scroll snapping for jump scroll effect */
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
     /* Set the background color for the entire page to match hero */
     body {
       background-color: var(--global-bg-color) !important;
@@ -105,6 +111,8 @@
     .container[role="main"] {
       margin-top: 0 !important;
       padding-top: 2rem;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
     }
 
     /* Remove any 56px top padding from hero section */
@@ -129,6 +137,8 @@
       justify-content: center;
       overflow: hidden;
       color: var(--global-text-color);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
     }
 
     .hero-image-wrapper {
