@@ -63,4 +63,4 @@ I believe that the best solutions come from understanding both the technical and
 
 ### Let's Connect!
 
-Feel free to explore my [projects](/projects/), read my [blog](/blog/), or check out my [resume](/cv/) to learn more about my work. I'm always open to interesting conversations about DevOps, cloud architecture, or just chatting about tech in general. Don't hesitate to reach out—I promise I don't bite! 🚀
+Feel free to explore my [projects](/projects/), read my [blog](/blog/), or check out my [resume](/resume/) to learn more about my work. I'm always open to interesting conversations about DevOps, cloud architecture, or just chatting about tech in general. Don't hesitate to reach out—I promise I don't bite! 🚀

@@ -23,7 +23,7 @@ Whether you're a fellow developer, DevOps engineer, or someone curious about clo
 
 ## About Me
 
-If you're new here, you might want to check out my [about page](/about/) to learn more about who I am and what I do. You can also explore my [projects](/projects/) and [resume](/cv/) to see more of my work.
+If you're new here, you might want to check out my [about page](/about/) to learn more about who I am and what I do. You can also explore my [projects](/projects/) and [resume](/resume/) to see more of my work.
 
 ## Stay Connected
 

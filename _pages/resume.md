@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /resume/
+permalink: /cv/
 title: Resume
 nav: false
 description: ATS-compliant resume for Vishnu Agarwal - Senior DevOps Engineer

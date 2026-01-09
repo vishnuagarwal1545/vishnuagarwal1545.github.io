@@ -1,11 +1,11 @@
 {% if page.permalink == '/' %}
   <div class="hero-section">
     <div class="hero-image-wrapper">
-      <img 
-        src="{{ site.baseurl }}/assets/img/prof_pic.png" 
+      <img
+        src="{{ site.baseurl }}/assets/img/prof_pic.png"
         alt="{{ site.first_name }} {{ site.last_name }}"
         class="hero-profile-image"
-      />
+      >
     </div>
     <div class="hero-content">
       <h1 class="hero-title">
@@ -14,7 +14,7 @@
       </h1>
       <p class="hero-subtitle">{{ page.subtitle }}</p>
       <div class="hero-buttons">
-        <a href="{{ '/cv/' | relative_url }}" class="btn btn-primary">Resume</a>
+        <a href="{{ '/resume/' | relative_url }}" class="btn btn-primary">Resume</a>
         <a href="{{ '/blog/' | relative_url }}" class="btn btn-outline-light">Blog</a>
       </div>
     </div>
@@ -54,7 +54,12 @@
     article,
     .social,
     .more-info,
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       background-color: var(--global-bg-color) !important;
     }
 
@@ -108,7 +113,7 @@
     }
 
     /* Adjust container margin to work better with full-height hero */
-    .container[role="main"] {
+    .container[role='main'] {
       margin-top: 0 !important;
       padding-top: 2rem;
       scroll-snap-align: start;
@@ -262,7 +267,6 @@
       color: #ffffff;
       font-weight: 400;
     }
-
 
     /*
      * Utility class for applying grayscale filter to any element
