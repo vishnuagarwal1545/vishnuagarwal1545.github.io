@@ -1,16 +1,25 @@
 {% if page.permalink == '/' %}
   <div class="hero-section">
-    <div class="hero-overlay"></div>
+    <div class="hero-image-wrapper">
+      <img 
+        src="{{ site.baseurl }}/assets/img/prof_pic.png" 
+        alt="{{ site.first_name }} {{ site.last_name }}"
+        class="hero-profile-image"
+      />
+    </div>
     <div class="hero-content">
-      <h1>
+      <h1 class="hero-title">
         {{ site.first_name }}
         {{ site.last_name }}
       </h1>
       <p class="hero-subtitle">{{ page.subtitle }}</p>
       <div class="hero-buttons">
-        <a href="{{ '/projects/' | relative_url }}" class="btn btn-primary">View Projects</a>
-        <a href="{{ '/cv/' | relative_url }}" class="btn btn-outline-light">Resume</a>
+        <a href="{{ '/cv/' | relative_url }}" class="btn btn-primary">Resume</a>
+        <a href="{{ '/blog/' | relative_url }}" class="btn btn-outline-light">Blog</a>
       </div>
+    </div>
+    <div class="hero-cta">
+      <p class="hero-cta-text">Let's Build Something Reliable</p>
     </div>
   </div>
 
@@ -26,6 +35,11 @@
       background-color: var(--global-bg-color) !important;
     }
 
+    /* Remove padding-top from fixed-top-nav on homepage */
+    body.fixed-top-nav {
+      padding-top: 0px !important;
+    }
+
     /* Match all about page elements to hero background color */
     .container,
     .post,
@@ -34,9 +48,57 @@
     article,
     .social,
     .more-info,
-    h1, h2, h3, h4, h5, h6,
-    .navbar {
+    h1, h2, h3, h4, h5, h6 {
       background-color: var(--global-bg-color) !important;
+    }
+
+    /* Make navbar transparent on homepage */
+    #navbar.navbar,
+    nav#navbar.navbar,
+    .navbar.navbar-light {
+      background-color: transparent !important;
+      background: transparent !important;
+      opacity: 1 !important;
+      box-shadow: none !important;
+    }
+
+    #navbar.navbar .container,
+    nav#navbar.navbar .container,
+    .navbar .container {
+      background-color: transparent !important;
+      background: transparent !important;
+    }
+
+    #navbar.navbar .nav-link,
+    nav#navbar.navbar .nav-link,
+    .navbar .nav-link {
+      color: #ffffff !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      background-color: transparent !important;
+    }
+
+    #navbar.navbar .navbar-brand,
+    nav#navbar.navbar .navbar-brand,
+    .navbar .navbar-brand {
+      color: #ffffff !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      background-color: transparent !important;
+    }
+
+    #navbar.navbar .navbar-nav,
+    nav#navbar.navbar .navbar-nav,
+    .navbar .navbar-nav {
+      background-color: transparent !important;
+    }
+
+    #navbar.navbar .navbar-toggler,
+    nav#navbar.navbar .navbar-toggler {
+      background-color: transparent !important;
+    }
+
+    #navbar.navbar .navbar-toggler .icon-bar,
+    nav#navbar.navbar .navbar-toggler .icon-bar {
+      background-color: #ffffff !important;
     }
 
     /* Adjust container margin to work better with full-height hero */
@@ -44,62 +106,78 @@
       margin-top: 0 !important;
       padding-top: 2rem;
     }
+
+    /* Remove any 56px top padding from hero section */
+    .hero-section {
+      padding-top: 0 !important;
+    }
+
+    .hero-content {
+      padding-top: 0 !important;
+    }
     .hero-section {
       position: relative;
       height: 100vh;
       min-height: 100vh;
-      /* Use CSS variable for background color to support dark mode */
-      background-color: var(--global-bg-color);
-      /* Previous gradient background (commented out) */
-      /* background: linear-gradient(135deg, #4a89dc 0%, #3a70c0 100%); */
-      /* Uncomment the line below to use an image */
-      /* background-image: url('{{ site.baseurl }}/assets/img/hero-bg.jpg'); */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin-bottom: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      padding-top: 0;
+      margin-top: 0;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      text-align: center;
-      color: var(--global-text-color); /* Use CSS variable for text color to support dark mode */
+      overflow: hidden;
+      color: var(--global-text-color);
     }
 
-    .hero-overlay {
+    .hero-image-wrapper {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
+      height: 110%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      z-index: 0;
+    }
+
+    .hero-profile-image {
+      width: 100%;
       height: 100%;
-      background-color: transparent; /* Remove the overlay to match the rest of the page */
+      object-fit: cover;
+      object-position: center 20%;
     }
 
     .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      padding: 0 20px;
+      position: absolute;
+      z-index: 2;
+      left: 100px;
+      top: 250px;
+      transform: translateY(0);
+      max-width: 600px;
+      text-align: left;
+      padding: 0 3rem;
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      background: transparent !important;
+      background-color: transparent !important;
     }
 
-    .hero-content h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for both light and dark modes */
-      color: var(--global-text-color);
-    }
-
-    .hero-subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      text-shadow: none;
-      color: var(--global-text-color-light);
+    .hero-content h1,
+    .hero-content p {
+      background: transparent !important;
+      background-color: transparent !important;
     }
 
     .hero-buttons {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 1rem;
+      margin-top: 1rem;
     }
 
     .hero-buttons .btn {
@@ -109,31 +187,72 @@
       letter-spacing: 1px;
       border-radius: 4px;
       transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .hero-buttons .btn-primary {
-      background-color: var(--global-theme-color);
-      border-color: var(--global-theme-color);
-      color: var(--global-hover-text-color);
+      background-color: transparent;
+      border: 2px solid #ffffff;
+      color: #ffffff;
     }
 
     .hero-buttons .btn-primary:hover {
-      background-color: var(--global-hover-color);
-      border-color: var(--global-hover-color);
-      color: var(--global-hover-text-color);
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      color: #ffffff;
     }
 
     .hero-buttons .btn-outline-light {
-      color: var(--global-text-color);
-      border-color: var(--global-text-color);
+      color: #ffffff;
+      border: 2px solid #ffffff;
       background-color: transparent;
     }
 
     .hero-buttons .btn-outline-light:hover {
-      background-color: var(--global-hover-color);
-      color: var(--global-hover-text-color);
-      border-color: var(--global-hover-color);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border-color: #ffffff;
     }
+
+    .hero-cta {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-cta-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+      line-height: 1.2;
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+      font-weight: 400;
+    }
+
 
     /*
      * Utility class for applying grayscale filter to any element
@@ -148,11 +267,25 @@
 
     @media (max-width: 768px) {
       .hero-section {
-        height: 100vh;
+        height: auto;
         min-height: 100vh;
       }
 
-      .hero-content h1 {
+      .hero-profile-image {
+        object-fit: cover;
+      }
+
+      .hero-content {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        max-width: 100%;
+        text-align: center;
+        padding: 2rem 0;
+      }
+
+      .hero-title {
         font-size: 2.5rem;
       }
 
@@ -161,8 +294,19 @@
       }
 
       .hero-buttons {
-        flex-direction: column;
-        gap: 0.5rem;
+        justify-content: center;
+      }
+
+      .hero-cta {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin-top: 2rem;
+      }
+
+      .hero-cta-text {
+        font-size: 1.2rem;
       }
     }
   </style>
