@@ -16,19 +16,19 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-resume",
+          title: "resume",
+          description: "Vishnu Agarwal - Senior DevOps Engineer with 6+ years of experience in cloud infrastructure, Kubernetes, and automation.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
         },{id: "nav-repositories",
           title: "repositories",
           description: "Edit the `_data/repositories.yml` and change the `github_users` and `github_repos` lists to include your own GitHub profile and repositories.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/repositories/";
-          },
-        },{id: "nav-resume",
-          title: "Resume",
-          description: "ATS-compliant resume for Vishnu Agarwal - Senior DevOps Engineer",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/resume/";
           },
         },{id: "nav-blog",
           title: "blog",
