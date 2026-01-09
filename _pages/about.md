@@ -6,8 +6,6 @@ subtitle: Senior DevOps Engineer | Cloud Infrastructure Wizard 🚀
 
 profile:
   align: right
-  image: prof_pic.jpg
-  image_circular: true # crops the image to make it circular
   more_info: >
     <p>📍 Remote (India)</p>
     <p>💼 Available for opportunities</p>
