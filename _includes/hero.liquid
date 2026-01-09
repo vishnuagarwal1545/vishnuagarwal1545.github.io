@@ -71,6 +71,7 @@
       background: transparent !important;
       opacity: 1 !important;
       box-shadow: none !important;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     #navbar.navbar .container,
@@ -86,6 +87,7 @@
       color: #ffffff !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       background-color: transparent !important;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
     #navbar.navbar .navbar-brand,
@@ -94,6 +96,50 @@
       color: #ffffff !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       background-color: transparent !important;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    /* Navbar text color when scrolled past hero - only in light mode */
+    /* Keep navbar transparent, only change text color */
+    @media (prefers-color-scheme: light) {
+      #navbar.navbar.scrolled-past-hero .nav-link,
+      nav#navbar.navbar.scrolled-past-hero .nav-link,
+      .navbar.navbar-light.scrolled-past-hero .nav-link {
+        color: var(--global-text-color) !important;
+        text-shadow: none !important;
+      }
+
+      #navbar.navbar.scrolled-past-hero .navbar-brand,
+      nav#navbar.navbar.scrolled-past-hero .navbar-brand,
+      .navbar.navbar-light.scrolled-past-hero .navbar-brand {
+        color: var(--global-text-color) !important;
+        text-shadow: none !important;
+      }
+
+      #navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar,
+      nav#navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar {
+        background-color: var(--global-text-color) !important;
+      }
+    }
+
+    /* Also check for explicit light theme class */
+    html[data-theme="light"] #navbar.navbar.scrolled-past-hero .nav-link,
+    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero .nav-link,
+    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero .nav-link {
+      color: var(--global-text-color) !important;
+      text-shadow: none !important;
+    }
+
+    html[data-theme="light"] #navbar.navbar.scrolled-past-hero .navbar-brand,
+    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero .navbar-brand,
+    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero .navbar-brand {
+      color: var(--global-text-color) !important;
+      text-shadow: none !important;
+    }
+
+    html[data-theme="light"] #navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar,
+    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar {
+      background-color: var(--global-text-color) !important;
     }
 
     #navbar.navbar .navbar-nav,
@@ -324,4 +370,46 @@
       }
     }
   </style>
+
+  <script>
+    (function() {
+      // Only run on homepage
+      if (window.location.pathname !== '/' && window.location.pathname !== '{{ site.baseurl }}/') {
+        return;
+      }
+
+      const navbar = document.getElementById('navbar');
+      if (!navbar) return;
+
+      const heroSection = document.querySelector('.hero-section');
+      if (!heroSection) return;
+
+      function handleScroll() {
+        const heroHeight = heroSection.offsetHeight;
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        
+        // Check if scrolled past hero section (with a small threshold)
+        if (scrollPosition > heroHeight - 100) {
+          navbar.classList.add('scrolled-past-hero');
+        } else {
+          navbar.classList.remove('scrolled-past-hero');
+        }
+      }
+
+      // Check on initial load
+      handleScroll();
+
+      // Listen to scroll events with throttling
+      let ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            handleScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+  </script>
 {% endif %}
