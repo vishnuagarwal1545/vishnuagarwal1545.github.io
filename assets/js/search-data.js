@@ -21,7 +21,7 @@ ninja.data = [{
           description: "Vishnu Agarwal - Senior DevOps Engineer with 6+ years of experience in cloud infrastructure, Kubernetes, and automation.",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/cv/";
+            window.location.href = "/resume/";
           },
         },{id: "nav-blog",
           title: "blog",
