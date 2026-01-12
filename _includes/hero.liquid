@@ -100,6 +100,22 @@
       transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
+    /* Theme toggle button styling on hero section */
+    #navbar.navbar #light-toggle,
+    nav#navbar.navbar #light-toggle,
+    .navbar #light-toggle {
+      color: #ffffff !important;
+      background-color: transparent !important;
+    }
+
+    #navbar.navbar #light-toggle i,
+    nav#navbar.navbar #light-toggle i,
+    .navbar #light-toggle i {
+      color: #ffffff !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
     /* Navbar text color when scrolled past hero - only in light mode */
     /* Keep navbar transparent, only change text color */
     @media (prefers-color-scheme: light) {
@@ -121,6 +137,19 @@
       nav#navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar {
         background-color: var(--global-text-color) !important;
       }
+
+      #navbar.navbar.scrolled-past-hero #light-toggle,
+      nav#navbar.navbar.scrolled-past-hero #light-toggle,
+      .navbar.navbar-light.scrolled-past-hero #light-toggle {
+        color: var(--global-text-color) !important;
+      }
+
+      #navbar.navbar.scrolled-past-hero #light-toggle i,
+      nav#navbar.navbar.scrolled-past-hero #light-toggle i,
+      .navbar.navbar-light.scrolled-past-hero #light-toggle i {
+        color: var(--global-text-color) !important;
+        text-shadow: none !important;
+      }
     }
 
     /* Also check for explicit light theme class */
@@ -141,6 +170,19 @@
     html[data-theme="light"] #navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar,
     html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar {
       background-color: var(--global-text-color) !important;
+    }
+
+    html[data-theme="light"] #navbar.navbar.scrolled-past-hero #light-toggle,
+    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero #light-toggle,
+    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero #light-toggle {
+      color: var(--global-text-color) !important;
+    }
+
+    html[data-theme="light"] #navbar.navbar.scrolled-past-hero #light-toggle i,
+    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero #light-toggle i,
+    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero #light-toggle i {
+      color: var(--global-text-color) !important;
+      text-shadow: none !important;
     }
 
     #navbar.navbar .navbar-nav,
