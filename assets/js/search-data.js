@@ -30,7 +30,29 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/blog/";
           },
-        },{id: "post-cloudwatch-database-insights-vs-rds-performance-insights-a-complete-comparison",
+        },{id: "post-autoscaling-on-request-rate-with-keda-and-datadog-what-the-docs-don-39-t-tell-you",
+        
+          title: "Autoscaling on Request Rate with KEDA and Datadog - What the Docs Don&#39;t...",
+        
+        description: "Hands-on notes from replacing per-app Datadog external-metric HPAs with KEDA on EKS. How a Datadog trigger really turns into a replica count, a unit bug that made every service scale to max, and what the tests showed.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/keda-datadog-autoscaling-lessons/";
+          
+        },
+      },{id: "post-moving-from-cluster-autoscaler-to-karpenter-on-eks-field-notes-from-a-dev-cluster-migration",
+        
+          title: "Moving from Cluster Autoscaler to Karpenter on EKS - Field Notes from a...",
+        
+        description: "A step-by-step test of replacing Cluster Autoscaler with Karpenter on an EKS cluster. What changed at each step, what broke (DaemonSets), and what consolidation, pool limits and disruption controls actually did.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/karpenter-migration-field-notes/";
+          
+        },
+      },{id: "post-cloudwatch-database-insights-vs-rds-performance-insights-a-complete-comparison",
         
           title: "CloudWatch Database Insights vs. RDS Performance Insights - A Complete Comparison",
         
