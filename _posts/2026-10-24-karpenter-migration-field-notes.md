@@ -34,13 +34,13 @@ Before every step I took read-only snapshots of Helm values, EKS access entries,
 
 ## Why Karpenter
 
-| | Cluster Autoscaler | Karpenter |
-|---|---|---|
-| Unit of scaling | Node group (ASG), fixed instance types | Individual instance, chosen per launch |
-| Capacity shortage | Scale-up stalls until the ASG retries | Falls back to another allowed type or AZ |
-| Bin-packing | Fixed node size | Sizes nodes to the pods that are waiting |
-| Scale-down | Removes nodes when every pod can move | Consolidation deletes empty nodes, and replaces under-used ones with cheaper ones |
-| Node lifecycle | Manual node group roll | Drift detection, expiry, disruption budgets |
+|                   | Cluster Autoscaler                     | Karpenter                                                                         |
+| ----------------- | -------------------------------------- | --------------------------------------------------------------------------------- |
+| Unit of scaling   | Node group (ASG), fixed instance types | Individual instance, chosen per launch                                            |
+| Capacity shortage | Scale-up stalls until the ASG retries  | Falls back to another allowed type or AZ                                          |
+| Bin-packing       | Fixed node size                        | Sizes nodes to the pods that are waiting                                          |
+| Scale-down        | Removes nodes when every pod can move  | Consolidation deletes empty nodes, and replaces under-used ones with cheaper ones |
+| Node lifecycle    | Manual node group roll                 | Drift detection, expiry, disruption budgets                                       |
 
 ## The migration, step by step
 
@@ -71,12 +71,12 @@ We then rolled the system node group once more, to a different instance type. On
 
 Right after tainting the existing nodes:
 
-| DaemonSet | Desired | Running | Misscheduled |
-|---|---|---|---|
-| Datadog agent | 0 | 5 | 5 |
-| Vector (logs) | 0 | 5 | 5 |
-| eks-pod-identity-agent | 0 | 5 | 5 |
-| aws-node, kube-proxy, ebs-csi | 5 | 5 | 0 |
+| DaemonSet                     | Desired | Running | Misscheduled |
+| ----------------------------- | ------- | ------- | ------------ |
+| Datadog agent                 | 0       | 5       | 5            |
+| Vector (logs)                 | 0       | 5       | 5            |
+| eks-pod-identity-agent        | 0       | 5       | 5            |
+| aws-node, kube-proxy, ebs-csi | 5       | 5       | 0            |
 
 A `NoSchedule` taint doesn't evict pods that are already running, so nothing went down **yet**. But the next rollout of those DaemonSets, or any new system node, would have come up without monitoring, logs or pod identity. At that moment every node was a system node, so a single Helm upgrade of the agent would have left the **whole cluster** unmonitored.
 
@@ -134,20 +134,20 @@ limits:
 - Before and after every step, a script captured read-only snapshots: EKS access entries, subnet and SG tags, IAM roles, instance profiles, SQS, EventBridge rules, `aws-auth`, CRDs, nodes with labels and taints, pods per node, DaemonSet coverage, PDBs, and the NodePool and EC2NodeClass specs. Each snapshot was then diffed against the previous one with `diff -ru`.
 - Behaviour was observed through NodeClaim events (`Launched`, `DisruptionTerminating`, `DisruptionBlocked`, `Unconsolidatable`), HPA events and the Karpenter controller logs.
 
-| # | Test | How | Expected | Result |
-|---|---|---|---|---|
-| 1 | Prerequisites | Discovery tags on subnets and SGs, install CRDs | Tags only; no workload, IAM or auth change; terraform plan clean | ✅ As expected |
-| 2 | Install Karpenter | Helm install, NodePool, EC2NodeClass, IAM, access entry, SQS, EventBridge; scale CAS to 0 | Controller Ready; nodes keep running; `aws-auth` untouched | ✅ All created. ⚠️ Tainting the existing nodes left 3 DaemonSets with **0 desired** (fixed with tolerations) |
-| 3 | Migrate workloads | Replace the managed node group (5 → 3 small system nodes) | Apps drain onto Karpenter nodes; no stuck drains | ✅ All apps moved, none unhealthy, no PDB blocks |
-| 4 | Roll system nodes again | Change the system node group's instance type | Only system nodes replaced | ✅ Workload nodes untouched, **0 app restarts** |
-| 5 | Scale-out | 6 pods × 1 vCPU / 1 GiB | Karpenter chooses a right-sized node | ✅ **1 × 2xlarge**, ready in about 40s (not 5 mediums) |
-| 6 | Consolidation | Scale back to 1 pod × 256m | Under-used nodes removed or replaced | ✅ 2xlarge + medium → **1 × xlarge** (`Underutilized`), then `Can't replace with a cheaper node` |
-| 7 | KEDA + Karpenter | Load on the HTTP service, KEDA range 1–12 | Pending pods get a node fast; cleanup after the load | ✅ Node launched about **3s** after pods went pending; extra nodes removed **50–80s** after scale-down |
-| 8 | Pool limit | Set `limits.cpu` = 5 with 4 vCPU in use, then load | No new nodes; pods Pending | ✅ `all available instance types exceed limits for nodepool`. **Unrelated CronJobs blocked too.** Restoring the limit launched a node at once |
-| 9 | `do-not-disrupt` | Annotate a node, then reduce load | Node not consolidated | ✅ `DisruptionBlocked … do-not-disrupt`; the other node was consolidated instead; the protected node still accepted pods |
-| 10 | Remove the annotation | Remove the annotation from the node | Node evaluated normally again | ✅ `Unconsolidatable: Can't replace with a cheaper node` |
-| 11 | Monitoring endpoint | Scrape `:8080/metrics` on each controller pod | Karpenter metrics available | ✅ 56 metric families. ⚠️ **Only the leader** reports the `nodepools_*` and `nodeclaims_*` series |
-| — | Disruption block window, rollback to CAS | — | — | Not run in this round |
+| #   | Test                                     | How                                                                                       | Expected                                                         | Result                                                                                                                                        |
+| --- | ---------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Prerequisites                            | Discovery tags on subnets and SGs, install CRDs                                           | Tags only; no workload, IAM or auth change; terraform plan clean | ✅ As expected                                                                                                                                |
+| 2   | Install Karpenter                        | Helm install, NodePool, EC2NodeClass, IAM, access entry, SQS, EventBridge; scale CAS to 0 | Controller Ready; nodes keep running; `aws-auth` untouched       | ✅ All created. ⚠️ Tainting the existing nodes left 3 DaemonSets with **0 desired** (fixed with tolerations)                                  |
+| 3   | Migrate workloads                        | Replace the managed node group (5 → 3 small system nodes)                                 | Apps drain onto Karpenter nodes; no stuck drains                 | ✅ All apps moved, none unhealthy, no PDB blocks                                                                                              |
+| 4   | Roll system nodes again                  | Change the system node group's instance type                                              | Only system nodes replaced                                       | ✅ Workload nodes untouched, **0 app restarts**                                                                                               |
+| 5   | Scale-out                                | 6 pods × 1 vCPU / 1 GiB                                                                   | Karpenter chooses a right-sized node                             | ✅ **1 × 2xlarge**, ready in about 40s (not 5 mediums)                                                                                        |
+| 6   | Consolidation                            | Scale back to 1 pod × 256m                                                                | Under-used nodes removed or replaced                             | ✅ 2xlarge + medium → **1 × xlarge** (`Underutilized`), then `Can't replace with a cheaper node`                                              |
+| 7   | KEDA + Karpenter                         | Load on the HTTP service, KEDA range 1–12                                                 | Pending pods get a node fast; cleanup after the load             | ✅ Node launched about **3s** after pods went pending; extra nodes removed **50–80s** after scale-down                                        |
+| 8   | Pool limit                               | Set `limits.cpu` = 5 with 4 vCPU in use, then load                                        | No new nodes; pods Pending                                       | ✅ `all available instance types exceed limits for nodepool`. **Unrelated CronJobs blocked too.** Restoring the limit launched a node at once |
+| 9   | `do-not-disrupt`                         | Annotate a node, then reduce load                                                         | Node not consolidated                                            | ✅ `DisruptionBlocked … do-not-disrupt`; the other node was consolidated instead; the protected node still accepted pods                      |
+| 10  | Remove the annotation                    | Remove the annotation from the node                                                       | Node evaluated normally again                                    | ✅ `Unconsolidatable: Can't replace with a cheaper node`                                                                                      |
+| 11  | Monitoring endpoint                      | Scrape `:8080/metrics` on each controller pod                                             | Karpenter metrics available                                      | ✅ 56 metric families. ⚠️ **Only the leader** reports the `nodepools_*` and `nodeclaims_*` series                                             |
+| —   | Disruption block window, rollback to CAS | —                                                                                         | —                                                                | Not run in this round                                                                                                                         |
 
 ## Test details
 
@@ -205,15 +205,15 @@ For a production fleet whose pod **CPU requests ran about 7× actual usage**, th
 
 ## Summary
 
-| Area | Result |
-|---|---|
+| Area               | Result                                                            |
+| ------------------ | ----------------------------------------------------------------- |
 | Enable and migrate | ✅ Clean, but tainting existing nodes needs DaemonSet tolerations |
-| Scale-out | ✅ Right-sized nodes, ready in about 40s |
-| Consolidation | ✅ Merges and replaces nodes; evicts single replicas ⚠️ |
-| KEDA integration | ✅ Pods to nodes in seconds, cleanup in about a minute |
-| Pool limits | ✅ Enforced, quietly. Alert on usage |
-| do-not-disrupt | ✅ Works; protected nodes still accept pods |
-| Zone spread | ⚠️ Not automatic; opt in per service |
+| Scale-out          | ✅ Right-sized nodes, ready in about 40s                          |
+| Consolidation      | ✅ Merges and replaces nodes; evicts single replicas ⚠️           |
+| KEDA integration   | ✅ Pods to nodes in seconds, cleanup in about a minute            |
+| Pool limits        | ✅ Enforced, quietly. Alert on usage                              |
+| do-not-disrupt     | ✅ Works; protected nodes still accept pods                       |
+| Zone spread        | ⚠️ Not automatic; opt in per service                              |
 
 Karpenter delivered what it promised. Most of the work in migrating is in what it exposes: DaemonSet tolerations, disruption budgets for single replicas, zone spread, pool-limit alerts, and accurate pod requests.
 

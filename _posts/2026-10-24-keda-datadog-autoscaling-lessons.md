@@ -31,14 +31,14 @@ The setup: EKS, KEDA 2.18 installed with its Helm chart, a `ScaledObject` per se
 
 ## Why move off `DatadogMetric` + HPA?
 
-| | Datadog external metrics (HPA) | KEDA `datadog` trigger |
-|---|---|---|
-| Where the query lives | A `DatadogMetric` resource, applied by per-app terraform | A `ScaledObject` in the app's own chart, next to its Deployment |
-| Changing a target | terraform apply, then an app config change | One deploy of the app chart |
-| Link between metric and HPA | Name passed through env vars; a mismatch fails silently | The query is in the ScaledObject itself; KEDA creates the HPA |
-| Other signals | Datadog only | 60+ scalers (SQS, CloudWatch, Kafka, Prometheus, cron, cpu, memory) |
-| Metric unavailable | HPA freezes | `fallback` sets a safe replica count |
-| Scale to zero | No | Yes |
+|                             | Datadog external metrics (HPA)                           | KEDA `datadog` trigger                                              |
+| --------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------- |
+| Where the query lives       | A `DatadogMetric` resource, applied by per-app terraform | A `ScaledObject` in the app's own chart, next to its Deployment     |
+| Changing a target           | terraform apply, then an app config change               | One deploy of the app chart                                         |
+| Link between metric and HPA | Name passed through env vars; a mismatch fails silently  | The query is in the ScaledObject itself; KEDA creates the HPA       |
+| Other signals               | Datadog only                                             | 60+ scalers (SQS, CloudWatch, Kafka, Prometheus, cron, cpu, memory) |
+| Metric unavailable          | HPA freezes                                              | `fallback` sets a safe replica count                                |
+| Scale to zero               | No                                                       | Yes                                                                 |
 
 **The catch: only one external metrics provider per cluster.** Kubernetes routes every `external.metrics.k8s.io` request to whoever owns the `v1beta1.external.metrics.k8s.io` APIService. The Datadog Cluster Agent and KEDA both register it. To install KEDA you hand the APIService over by setting `clusterAgent.metricsProvider.registerAPIService: false` in the Datadog chart. From then on, any HPA still pointing at `datadogmetric@...` silently stops scaling. So the switch is **per cluster**, and every app using Datadog-metric scaling has to migrate in the same window.
 
@@ -56,7 +56,7 @@ metadata:
   namespace: keda
 stringData:
   apiKey: <DD_API_KEY>
-  appKey: <DD_APP_KEY>      # needs the timeseries_query scope
+  appKey: <DD_APP_KEY> # needs the timeseries_query scope
   datadogSite: datadoghq.com
 ---
 apiVersion: keda.sh/v1alpha1
@@ -88,7 +88,7 @@ metadata:
   namespace: my-app
 spec:
   scaleTargetRef:
-    name: web                  # the Deployment to scale
+    name: web # the Deployment to scale
   minReplicaCount: 2
   maxReplicaCount: 12
   fallback:
@@ -142,7 +142,7 @@ The first version of the trigger looked reasonable:
 
 ```yaml
 query: "sum:envoy.cluster.upstream_rq_completed.count{...}.as_rate()"
-queryValue: "1"      # 1 request/sec per pod
+queryValue: "1" # 1 request/sec per pod
 age: "120"
 lastAvailablePointOffset: "1"
 ```
@@ -162,9 +162,9 @@ The fix was to stop relying on `.as_rate()` and make the unit explicit:
 
 ```yaml
 query: "sum:envoy.cluster.upstream_rq_completed.count{...}.as_count().rollup(sum, 60)"
-queryValue: "20"     # requests per MINUTE per pod
-age: "180"           # >= 2 full 60s buckets
-lastAvailablePointOffset: "1"   # skip the minute still filling
+queryValue: "20" # requests per MINUTE per pod
+age: "180" # >= 2 full 60s buckets
+lastAvailablePointOffset: "1" # skip the minute still filling
 ```
 
 **Takeaway:** before you trust a Datadog query in a scaler, run it with the **same `age` window** KEDA will use and look at the raw points. What a dashboard shows over an hour isn't what a 2-minute API query returns.
@@ -173,13 +173,13 @@ lastAvailablePointOffset: "1"   # skip the minute still filling
 
 With `queryValue: 20` (20 requests per minute per pod), I generated stepped load with a deliberate one-minute pause. Requests per minute come from Datadog, replicas from the HPA events.
 
-| Load (req/min) | Expected `ceil(÷20)` | HPA did |
-|---|---|---|
-| 203 | 11 | 1 → **11** ✅ |
-| 154 | 8 | → **8** ✅ |
-| 76 | 4 | → **4** ✅ |
-| 0 | 1 (min) | → **1** ✅ |
-| 7 (the pause) | 1 | **11 → 1** ⚠️ |
+| Load (req/min) | Expected `ceil(÷20)` | HPA did       |
+| -------------- | -------------------- | ------------- |
+| 203            | 11                   | 1 → **11** ✅ |
+| 154            | 8                    | → **8** ✅    |
+| 76             | 4                    | → **4** ✅    |
+| 0              | 1 (min)              | → **1** ✅    |
+| 7 (the pause)  | 1                    | **11 → 1** ⚠️ |
 
 - **The math matched at every step.**
 - **Reaction time** was about 1–2 minutes to scale up and 1–1.5 minutes to scale down. That's expected with one-minute buckets and skipping the newest point.
@@ -252,7 +252,7 @@ Set `prometheus.operator.enabled: true` in the chart values from day one, then p
 ```yaml
 prometheus:
   operator:
-    enabled: true          # keda_scaler_* and keda_scaled_object_* metrics on :8080
+    enabled: true # keda_scaler_* and keda_scaled_object_* metrics on :8080
 nodeSelector:
   node-role/system: "true" # keep KEDA on the fixed system nodes
 tolerations:

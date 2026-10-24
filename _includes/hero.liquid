@@ -71,7 +71,9 @@
       background: transparent !important;
       opacity: 1 !important;
       box-shadow: none !important;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
       z-index: 1030;
     }
 
@@ -88,7 +90,9 @@
       color: #ffffff !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       background-color: transparent !important;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
+      transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
     }
 
     #navbar.navbar .navbar-brand,
@@ -97,7 +101,9 @@
       color: #ffffff !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       background-color: transparent !important;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
+      transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
     }
 
     /* Theme toggle button styling on hero section */
@@ -113,7 +119,9 @@
     .navbar #light-toggle i {
       color: #ffffff !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-      transition: color 0.3s ease, text-shadow 0.3s ease;
+      transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
     }
 
     /* Navbar text color when scrolled past hero - only in light mode */
@@ -153,34 +161,34 @@
     }
 
     /* Also check for explicit light theme class */
-    html[data-theme="light"] #navbar.navbar.scrolled-past-hero .nav-link,
-    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero .nav-link,
-    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero .nav-link {
+    html[data-theme='light'] #navbar.navbar.scrolled-past-hero .nav-link,
+    html[data-theme='light'] nav#navbar.navbar.scrolled-past-hero .nav-link,
+    html[data-theme='light'] .navbar.navbar-light.scrolled-past-hero .nav-link {
       color: var(--global-text-color) !important;
       text-shadow: none !important;
     }
 
-    html[data-theme="light"] #navbar.navbar.scrolled-past-hero .navbar-brand,
-    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero .navbar-brand,
-    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero .navbar-brand {
+    html[data-theme='light'] #navbar.navbar.scrolled-past-hero .navbar-brand,
+    html[data-theme='light'] nav#navbar.navbar.scrolled-past-hero .navbar-brand,
+    html[data-theme='light'] .navbar.navbar-light.scrolled-past-hero .navbar-brand {
       color: var(--global-text-color) !important;
       text-shadow: none !important;
     }
 
-    html[data-theme="light"] #navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar,
-    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar {
+    html[data-theme='light'] #navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar,
+    html[data-theme='light'] nav#navbar.navbar.scrolled-past-hero .navbar-toggler .icon-bar {
       background-color: var(--global-text-color) !important;
     }
 
-    html[data-theme="light"] #navbar.navbar.scrolled-past-hero #light-toggle,
-    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero #light-toggle,
-    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero #light-toggle {
+    html[data-theme='light'] #navbar.navbar.scrolled-past-hero #light-toggle,
+    html[data-theme='light'] nav#navbar.navbar.scrolled-past-hero #light-toggle,
+    html[data-theme='light'] .navbar.navbar-light.scrolled-past-hero #light-toggle {
       color: var(--global-text-color) !important;
     }
 
-    html[data-theme="light"] #navbar.navbar.scrolled-past-hero #light-toggle i,
-    html[data-theme="light"] nav#navbar.navbar.scrolled-past-hero #light-toggle i,
-    html[data-theme="light"] .navbar.navbar-light.scrolled-past-hero #light-toggle i {
+    html[data-theme='light'] #navbar.navbar.scrolled-past-hero #light-toggle i,
+    html[data-theme='light'] nav#navbar.navbar.scrolled-past-hero #light-toggle i,
+    html[data-theme='light'] .navbar.navbar-light.scrolled-past-hero #light-toggle i {
       color: var(--global-text-color) !important;
       text-shadow: none !important;
     }
@@ -467,7 +475,7 @@
   </style>
 
   <script>
-    (function() {
+    (function () {
       // Only run on homepage
       if (window.location.pathname !== '/' && window.location.pathname !== '{{ site.baseurl }}/') {
         return;
@@ -482,7 +490,7 @@
       function handleScroll() {
         const heroHeight = heroSection.offsetHeight;
         const scrollPosition = window.scrollY || window.pageYOffset;
-        
+
         // Check if scrolled past hero section (with a small threshold)
         if (scrollPosition > heroHeight - 100) {
           navbar.classList.add('scrolled-past-hero');
@@ -496,15 +504,15 @@
 
       // Listen to scroll events with throttling
       let ticking = false;
-      window.addEventListener('scroll', function() {
+      window.addEventListener('scroll', function () {
         if (!ticking) {
-          window.requestAnimationFrame(function() {
+          window.requestAnimationFrame(function () {
             handleScroll();
             ticking = false;
           });
           ticking = true;
         }
-        
+
         // Close hamburger menu on scroll
         const navbarCollapse = document.getElementById('navbarNav');
         if (navbarCollapse && navbarCollapse.classList.contains('show')) {
@@ -516,11 +524,11 @@
       });
 
       // Close hamburger menu when clicking outside
-      document.addEventListener('click', function(event) {
+      document.addEventListener('click', function (event) {
         const navbar = document.getElementById('navbar');
         const navbarCollapse = document.getElementById('navbarNav');
         const navbarToggler = document.querySelector('.navbar-toggler');
-        
+
         if (navbarCollapse && navbarCollapse.classList.contains('show')) {
           const isClickInsideNav = navbar && navbar.contains(event.target);
           if (!isClickInsideNav && navbarToggler) {
